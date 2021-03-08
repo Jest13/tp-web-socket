@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src='/socket.io/socket.io.js'></script>
+
+    <script>
+    var socket = io(); //connexion au serveur 
+
+var send = function () {
+  var text = document.getElementById('m').value; //valeur m inseré dans la variable text et envoyé vers au message 
+  socket.emit('chat message',text); // renvoyer les message écoutés 
+}
+
+var receive = function(msg) {
+  var li = document.createElement('li');
+  li.innerText = msg; // ajout du message reçu dans le Li 
+  document.getElementById('messages').appendChild(li); //ajouter a la liste message 
+}
+socket.on('chat message', receive); // écoute coté client ce qui arrive dans la fonction receive 
+    </script>
+  
+    <title>Messagerie</title>
+</head>
+
+<body>
+<div>
+        <ul id="messages"></ul>
+        <div class="zone_saisie">
+        <input id="m" /> <button onclick="send()">Envoyer</button>
+    </div>
+</div>
+</body>
+
+</html>
